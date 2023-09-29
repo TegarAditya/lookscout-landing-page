@@ -39,7 +39,7 @@ function handleGetFormData() {
 
   function validateZipCode() {
     const zipCodeValue = zipCodeInput.value.trim();
-    if (zipCodeValue === "" && !isNaN(zipCodeValue)) {
+    if (zipCodeValue === "" && !isNumber(zipCodeValue)) {
       displayError("Kode Pos tidak boleh kosong dan harus berupa angka");
       return false;
     }
@@ -72,7 +72,7 @@ function handleGetFormData() {
     }, 3000);
   }
 
-  form.addEventListener("submit", function (event) {
+  function validateFormData (event) {
     if (
       !validateName() ||
       !validateEmail() ||
@@ -84,7 +84,13 @@ function handleGetFormData() {
     ) {
       event.preventDefault(); // Prevent form submission if there are errors.
     }
-  });
+  }
+
+  form.addEventListener("submit", validateFormData);
+}
+
+function isNumber(param) {
+    return isNaN(param);
 }
 
 document.addEventListener("DOMContentLoaded", handleGetFormData);
